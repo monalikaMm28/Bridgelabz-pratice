@@ -1,0 +1,229 @@
+//java methods assignment 1
+
+//1. Simple Interest Calculation
+
+import java.util.Scanner;
+
+public class SimpleInterestCalculator {
+    public static double calculateSimpleInterest(double principal, double rate, double time) {
+        return (principal * rate * time) / 100;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter Principal: ");
+        double p = sc.nextDouble();
+        System.out.print("Enter Rate: ");
+        double r = sc.nextDouble();
+        System.out.print("Enter Time: ");
+        double t = sc.nextDouble();
+        
+        double si = calculateSimpleInterest(p, r, t);
+        System.out.printf("The Simple Interest is %.2f for Principal %.2f, Rate of Interest %.2f and Time %.2f\n", si, p, r, t);
+    }
+}
+//2. Maximum Number of Handshakes
+
+import java.util.Scanner;
+
+public class HandshakeCalculator {
+    public static int calculateHandshakes(int n) {
+        return (n * (n - 1)) / 2;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of students: ");
+        int students = sc.nextInt();
+        int handshakes = calculateHandshakes(students);
+        System.out.println("Maximum number of handshakes: " + handshakes);
+    }
+}
+//3. Athlete in Triangular Park
+
+import java.util.Scanner;
+
+public class TriangularPark {
+    public static int calculateRounds(double a, double b, double c) {
+        double perimeter = a + b + c;
+        return (int)(5000 / perimeter);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter side a: ");
+        double a = sc.nextDouble();
+        System.out.print("Enter side b: ");
+        double b = sc.nextDouble();
+        System.out.print("Enter side c: ");
+        double c = sc.nextDouble();
+        
+        int rounds = calculateRounds(a, b, c);
+        System.out.println("Number of rounds to complete 5 km: " + rounds);
+    }
+}
+//4. Check Positive, Negative or Zero
+
+import java.util.Scanner;
+
+public class NumberCheck {
+    public static int checkNumber(int number) {
+        if (number > 0) return 1;
+        else if (number < 0) return -1;
+        else return 0;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a number: ");
+        int num = sc.nextInt();
+        int result = checkNumber(num);
+        System.out.println("Result: " + result);
+    }
+}
+//5. Spring Season Checker
+
+import java.util.Scanner;
+
+public class SpringSeason {
+    public static boolean isSpring(int month, int day) {
+        return (month == 3 && day >= 20) || (month == 4 || month == 5) || (month == 6 && day <= 20);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter month: ");
+        int month = sc.nextInt();
+        System.out.print("Enter day: ");
+        int day = sc.nextInt();
+        
+        if (isSpring(month, day)) {
+            System.out.println("It's a Spring Season");
+        } else {
+            System.out.println("Not a Spring Season");
+        }
+    }
+}
+//6. Sum of N Natural Numbers
+
+import java.util.Scanner;
+
+public class NaturalSum {
+    public static int sumN(int n) {
+        int sum = 0;
+        for (int i = 1; i <= n; i++) sum += i;
+        return sum;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter value of n: ");
+        int n = sc.nextInt();
+        System.out.println("Sum = " + sumN(n));
+    }
+}
+//7. Smallest and Largest of 3 Numbers
+
+import java.util.Scanner;
+
+public class MinMaxFinder {
+    public static int[] findSmallestAndLargest(int a, int b, int c) {
+        int smallest = Math.min(a, Math.min(b, c));
+        int largest = Math.max(a, Math.max(b, c));
+        return new int[]{smallest, largest};
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter three numbers: ");
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        int c = sc.nextInt();
+        int[] result = findSmallestAndLargest(a, b, c);
+        System.out.println("Smallest: " + result[0]);
+        System.out.println("Largest: " + result[1]);
+    }
+}
+//8. Quotient and Remainder
+
+import java.util.Scanner;
+
+public class Division {
+    public static int[] findRemainderAndQuotient(int number, int divisor) {
+        return new int[]{number % divisor, number / divisor};
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number: ");
+        int number = sc.nextInt();
+        System.out.print("Enter divisor: ");
+        int divisor = sc.nextInt();
+        
+        int[] result = findRemainderAndQuotient(number, divisor);
+        System.out.println("Quotient: " + result[1]);
+        System.out.println("Remainder: " + result[0]);
+    }
+}
+//9. Distribute Chocolates
+
+import java.util.Scanner;
+
+public class ChocolateDistributor {
+    public static int[] findRemainderAndQuotient(int chocolates, int children) {
+        return new int[]{chocolates % children, chocolates / children};
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of chocolates: ");
+        int chocolates = sc.nextInt();
+        System.out.print("Enter number of children: ");
+        int children = sc.nextInt();
+        
+        int[] result = findRemainderAndQuotient(chocolates, children);
+        System.out.println("Each child gets: " + result[1]);
+        System.out.println("Remaining chocolates: " + result[0]);
+    }
+}
+//10. Wind Chill Temperature
+
+import java.util.Scanner;
+
+public class WindChillCalculator {
+    public static double calculateWindChill(double temp, double windSpeed) {
+        return 35.74 + 0.6215 * temp + (0.4275 * temp - 35.75) * Math.pow(windSpeed, 0.16);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter temperature (F): ");
+        double temp = sc.nextDouble();
+        System.out.print("Enter wind speed (mph): ");
+        double speed = sc.nextDouble();
+        
+        System.out.printf("Wind chill temperature: %.2f\n", calculateWindChill(temp, speed));
+    }
+}
+//11. Trigonometric Functions
+
+import java.util.Scanner;
+
+public class TrigFunctions {
+    public static double[] calculateTrigonometricFunctions(double angle) {
+        double radians = Math.toRadians(angle);
+        return new double[]{
+            Math.sin(radians),
+            Math.cos(radians),
+            Math.tan(radians)
+        };
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter angle in degrees: ");
+        double angle = sc.nextDouble();
+        double[] result = calculateTrigonometricFunctions(angle);
+        System.out.printf("sin: %.4f, cos: %.4f, tan: %.4f\n", result[0], result[1], result[2]);
+    }
+}

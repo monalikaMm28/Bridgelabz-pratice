@@ -1,0 +1,286 @@
+//level 2 arrays java assignment:
+// Program 1: Bonus Calculation for 10 Employees
+import java.util.*;
+
+public class EmployeeBonus {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        double[] salary = new double[10];
+        double[] years = new double[10];
+        double[] bonus = new double[10];
+        double[] newSalary = new double[10];
+        double totalBonus = 0, totalOldSalary = 0, totalNewSalary = 0;
+
+        for (int i = 0; i < 10; i++) {
+            System.out.println("Enter salary and years of service for employee " + (i + 1) + ":");
+            double s = sc.nextDouble();
+            double y = sc.nextDouble();
+            if (s < 0 || y < 0) {
+                System.out.println("Invalid input. Try again.");
+                i--;
+                continue;
+            }
+            salary[i] = s;
+            years[i] = y;
+        }
+
+        for (int i = 0; i < 10; i++) {
+            bonus[i] = (years[i] > 5) ? salary[i] * 0.05 : salary[i] * 0.02;
+            newSalary[i] = salary[i] + bonus[i];
+            totalBonus += bonus[i];
+            totalOldSalary += salary[i];
+            totalNewSalary += newSalary[i];
+        }
+
+        System.out.println("Total Bonus: " + totalBonus);
+        System.out.println("Total Old Salary: " + totalOldSalary);
+        System.out.println("Total New Salary: " + totalNewSalary);
+    }
+}
+
+// Program 2: Youngest and Tallest Friend
+import java.util.*;
+
+public class FriendsStats {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int[] ages = new int[3];
+        double[] heights = new double[3];
+        String[] names = {"Amar", "Akbar", "Anthony"};
+
+        for (int i = 0; i < 3; i++) {
+            System.out.println("Enter age and height of " + names[i] + ":");
+            ages[i] = sc.nextInt();
+            heights[i] = sc.nextDouble();
+        }
+
+        int minAgeIdx = 0, maxHeightIdx = 0;
+        for (int i = 1; i < 3; i++) {
+            if (ages[i] < ages[minAgeIdx]) minAgeIdx = i;
+            if (heights[i] > heights[maxHeightIdx]) maxHeightIdx = i;
+        }
+
+        System.out.println("Youngest: " + names[minAgeIdx]);
+        System.out.println("Tallest: " + names[maxHeightIdx]);
+    }
+}
+
+// Program 3: Largest and Second Largest Digit
+import java.util.*;
+
+public class LargestDigits {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int number = sc.nextInt();
+        int[] digits = new int[10];
+        int index = 0;
+
+        while (number != 0 && index < 10) {
+            digits[index++] = number % 10;
+            number /= 10;
+        }
+
+        int max = 0, secondMax = 0;
+        for (int i = 0; i < index; i++) {
+            if (digits[i] > max) {
+                secondMax = max;
+                max = digits[i];
+            } else if (digits[i] > secondMax && digits[i] != max) {
+                secondMax = digits[i];
+            }
+        }
+
+        System.out.println("Largest: " + max);
+        System.out.println("Second Largest: " + secondMax);
+    }
+}
+
+// Program 4: Dynamic Array for Digit Extraction
+import java.util.*;
+
+public class DynamicDigitArray {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int number = sc.nextInt();
+        int maxDigit = 10;
+        int[] digits = new int[maxDigit];
+        int index = 0;
+
+        while (number != 0) {
+            if (index == maxDigit) {
+                maxDigit += 10;
+                int[] temp = new int[maxDigit];
+                for (int i = 0; i < digits.length; i++) temp[i] = digits[i];
+                digits = temp;
+            }
+            digits[index++] = number % 10;
+            number /= 10;
+        }
+
+        int max = 0, secondMax = 0;
+        for (int i = 0; i < index; i++) {
+            if (digits[i] > max) {
+                secondMax = max;
+                max = digits[i];
+            } else if (digits[i] > secondMax && digits[i] != max) {
+                secondMax = digits[i];
+            }
+        }
+
+        System.out.println("Largest: " + max);
+        System.out.println("Second Largest: " + secondMax);
+    }
+}
+
+// Program 5: Reverse a Number using Array
+import java.util.*;
+
+public class ReverseNumber {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int number = sc.nextInt();
+        int[] digits = new int[10];
+        int index = 0;
+
+        while (number != 0) {
+            digits[index++] = number % 10;
+            number /= 10;
+        }
+
+        System.out.print("Reversed number: ");
+        for (int i = 0; i < index; i++) {
+            System.out.print(digits[i]);
+        }
+        System.out.println();
+    }
+}
+
+// Program 6: BMI Calculation
+import java.util.*;
+
+public class BMICalculator {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        double[] weight = new double[n];
+        double[] height = new double[n];
+        double[] bmi = new double[n];
+        String[] status = new String[n];
+
+        for (int i = 0; i < n; i++) {
+            weight[i] = sc.nextDouble();
+            height[i] = sc.nextDouble();
+            bmi[i] = weight[i] / (height[i] * height[i]);
+
+            if (bmi[i] < 18.5) status[i] = "Underweight";
+            else if (bmi[i] < 24.9) status[i] = "Normal";
+            else if (bmi[i] < 29.9) status[i] = "Overweight";
+            else status[i] = "Obese";
+        }
+
+        for (int i = 0; i < n; i++) {
+            System.out.println("Height: " + height[i] + ", Weight: " + weight[i] + ", BMI: " + bmi[i] + ", Status: " + status[i]);
+        }
+    }
+}
+
+// Program 7: BMI using 2D Array
+import java.util.*;
+
+public class BMICalculator2D {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        double[][] data = new double[n][3];
+        String[] status = new String[n];
+
+        for (int i = 0; i < n; i++) {
+            data[i][0] = sc.nextDouble(); // weight
+            data[i][1] = sc.nextDouble(); // height
+            data[i][2] = data[i][0] / (data[i][1] * data[i][1]);
+
+            if (data[i][2] < 18.5) status[i] = "Underweight";
+            else if (data[i][2] < 24.9) status[i] = "Normal";
+            else if (data[i][2] < 29.9) status[i] = "Overweight";
+            else status[i] = "Obese";
+        }
+
+        for (int i = 0; i < n; i++) {
+            System.out.println("Height: " + data[i][1] + ", Weight: " + data[i][0] + ", BMI: " + data[i][2] + ", Status: " + status[i]);
+        }
+    }
+}
+
+// Program 8: Marks and Grades
+import java.util.*;
+
+public class MarksAndGrades {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] physics = new int[n], chemistry = new int[n], maths = new int[n];
+        double[] percentage = new double[n];
+        String[] grade = new String[n];
+
+        for (int i = 0; i < n; i++) {
+            physics[i] = sc.nextInt();
+            chemistry[i] = sc.nextInt();
+            maths[i] = sc.nextInt();
+
+            percentage[i] = (physics[i] + chemistry[i] + maths[i]) / 3.0;
+            grade[i] = percentage[i] >= 90 ? "A" : percentage[i] >= 75 ? "B" : percentage[i] >= 60 ? "C" : "D";
+        }
+
+        for (int i = 0; i < n; i++) {
+            System.out.println("Physics: " + physics[i] + ", Chemistry: " + chemistry[i] + ", Maths: " + maths[i] + ", %: " + percentage[i] + ", Grade: " + grade[i]);
+        }
+    }
+}
+
+// Program 9: Marks and Grades using 2D Array
+import java.util.*;
+
+public class Marks2DArray {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[][] marks = new int[n][3];
+        double[] percentage = new double[n];
+        String[] grade = new String[n];
+
+        for (int i = 0; i < n; i++) {
+            marks[i][0] = sc.nextInt();
+            marks[i][1] = sc.nextInt();
+            marks[i][2] = sc.nextInt();
+
+            percentage[i] = (marks[i][0] + marks[i][1] + marks[i][2]) / 3.0;
+            grade[i] = percentage[i] >= 90 ? "A" : percentage[i] >= 75 ? "B" : percentage[i] >= 60 ? "C" : "D";
+        }
+
+        for (int i = 0; i < n; i++) {
+            System.out.println("Marks: " + Arrays.toString(marks[i]) + ", %: " + percentage[i] + ", Grade: " + grade[i]);
+        }
+    }
+}
+
+// Program 10: Digit Frequency
+import java.util.*;
+
+public class DigitFrequency {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int number = sc.nextInt();
+        int[] freq = new int[10];
+
+        while (number != 0) {
+            freq[number % 10]++;
+            number /= 10;
+        }
+
+        for (int i = 0; i < 10; i++) {
+            if (freq[i] > 0) {
+                System.out.println("Digit " + i + ": " + freq[i] + " times");
+            }
+        }
+    }
+}

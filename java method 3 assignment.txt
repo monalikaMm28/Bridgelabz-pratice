@@ -1,0 +1,854 @@
+// java method 3 assignment
+
+//1.// PlayerHeightStats.java
+import java.util.*;
+
+public class PlayerHeightStats {
+
+    public static int[] generateRandomHeights(int size, int min, int max) {
+        Random rand = new Random();
+        int[] heights = new int[size];
+        for (int i = 0; i < size; i++) {
+            heights[i] = rand.nextInt(max - min + 1) + min;
+        }
+        return heights;
+    }
+
+    public static int findSum(int[] arr) {
+        int sum = 0;
+        for (int height : arr) {
+            sum += height;
+        }
+        return sum;
+    }
+
+    public static double findMean(int[] arr) {
+        return (double) findSum(arr) / arr.length;
+    }
+
+    public static int findMin(int[] arr) {
+        int min = arr[0];
+        for (int height : arr) {
+            if (height < min) min = height;
+        }
+        return min;
+    }
+
+    public static int findMax(int[] arr) {
+        int max = arr[0];
+        for (int height : arr) {
+            if (height > max) max = height;
+        }
+        return max;
+    }
+
+    public static void main(String[] args) {
+        int[] heights = generateRandomHeights(11, 150, 250);
+        System.out.println("Player Heights (in cm): " + Arrays.toString(heights));
+        System.out.println("Shortest Height: " + findMin(heights) + " cm");
+        System.out.println("Tallest Height: " + findMax(heights) + " cm");
+        System.out.printf("Mean Height: %.2f cm\n", findMean(heights));
+    }
+}
+
+//it includes 2 question to 6 question:
+import java.util.Arrays;
+
+public class NumberChecker {
+
+    // Count the digits
+    public static int countDigits(int number) {
+        return String.valueOf(Math.abs(number)).length();
+    }
+
+    // Store digits in array
+    public static int[] getDigitsArray(int number) {
+        String numStr = String.valueOf(Math.abs(number));
+        int[] digits = new int[numStr.length()];
+        for (int i = 0; i < numStr.length(); i++) {
+            digits[i] = numStr.charAt(i) - '0';
+        }
+        return digits;
+    }
+
+    // Sum of digits
+    public static int sumOfDigits(int[] digits) {
+        int sum = 0;
+        for (int d : digits) sum += d;
+        return sum;
+    }
+
+    // Sum of squares of digits
+    public static int sumOfSquares(int[] digits) {
+        int sum = 0;
+        for (int d : digits) sum += Math.pow(d, 2);
+        return sum;
+    }
+
+    // Is Harshad number?
+    public static boolean isHarshad(int number, int[] digits) {
+        return number % sumOfDigits(digits) == 0;
+    }
+
+    // Frequency of each digit
+    public static int[][] digitFrequency(int[] digits) {
+        int[] freq = new int[10];
+        for (int d : digits) freq[d]++;
+        int count = 0;
+        for (int f : freq) if (f > 0) count++;
+
+        int[][] result = new int[count][2];
+        int idx = 0;
+        for (int i = 0; i < 10; i++) {
+            if (freq[i] > 0) {
+                result[idx][0] = i;
+                result[idx][1] = freq[i];
+                idx++;
+            }
+        }
+        return result;
+    }
+
+    // Is Duck Number (contains 0 but not starting with 0)
+    public static boolean isDuckNumber(int number) {
+        String numStr = String.valueOf(number);
+        return numStr.contains("0") && numStr.charAt(0) != '0';
+    }
+
+    // Is Armstrong Number?
+    public static boolean isArmstrong(int number, int[] digits) {
+        int n = digits.length;
+        int sum = 0;
+        for (int d : digits) sum += Math.pow(d, n);
+        return sum == number;
+    }
+
+    // Largest and second largest
+    public static int[] findTwoLargest(int[] digits) {
+        int first = Integer.MIN_VALUE, second = Integer.MIN_VALUE;
+        for (int d : digits) {
+            if (d > first) {
+                second = first;
+                first = d;
+            } else if (d > second && d != first) {
+                second = d;
+            }
+        }
+        return new int[]{first, second};
+    }
+
+    // Smallest and second smallest
+    public static int[] findTwoSmallest(int[] digits) {
+        int first = Integer.MAX_VALUE, second = Integer.MAX_VALUE;
+        for (int d : digits) {
+            if (d < first) {
+                second = first;
+                first = d;
+            } else if (d < second && d != first) {
+                second = d;
+            }
+        }
+        return new int[]{first, second};
+    }
+
+    // Reverse digits array
+    public static int[] reverseDigits(int[] digits) {
+        int[] rev = digits.clone();
+        for (int i = 0, j = rev.length - 1; i < j; i++, j--) {
+            int temp = rev[i];
+            rev[i] = rev[j];
+            rev[j] = temp;
+        }
+        return rev;
+    }
+
+    // Compare two arrays
+    public static boolean areArraysEqual(int[] a, int[] b) {
+        return Arrays.equals(a, b);
+    }
+
+    // Check Palindrome
+    public static boolean isPalindrome(int[] digits) {
+        return areArraysEqual(digits, reverseDigits(digits));
+    }
+
+    // Is Prime Number
+    public static boolean isPrime(int number) {
+        if (number <= 1) return false;
+        for (int i = 2; i <= Math.sqrt(number); i++) {
+            if (number % i == 0) return false;
+        }
+        return true;
+    }
+
+    // Is Neon Number
+    public static boolean isNeon(int number) {
+        int square = number * number;
+        int sum = 0;
+        while (square > 0) {
+            sum += square % 10;
+            square /= 10;
+        }
+        return sum == number;
+    }
+
+    // Is Spy Number
+    public static boolean isSpyNumber(int number) {
+        int[] digits = getDigitsArray(number);
+        int sum = 0, product = 1;
+        for (int d : digits) {
+            sum += d;
+            product *= d;
+        }
+        return sum == product;
+    }
+
+    // Is Automorphic
+    public static boolean isAutomorphic(int number) {
+        int square = number * number;
+        return String.valueOf(square).endsWith(String.valueOf(number));
+    }
+
+    // Is Buzz Number
+    public static boolean isBuzz(int number) {
+        return number % 7 == 0 || number % 10 == 7;
+    }
+
+    // Get all factors of a number
+    public static int[] getFactors(int number) {
+        int count = 0;
+        for (int i = 1; i <= number; i++) {
+            if (number % i == 0) count++;
+        }
+        int[] factors = new int[count];
+        int idx = 0;
+        for (int i = 1; i <= number; i++) {
+            if (number % i == 0) factors[idx++] = i;
+        }
+        return factors;
+    }
+
+    // Greatest factor (excluding the number itself)
+    public static int getGreatestFactor(int[] factors, int number) {
+        int max = Integer.MIN_VALUE;
+        for (int f : factors) {
+            if (f != number && f > max) max = f;
+        }
+        return max;
+    }
+
+    // Sum of factors
+    public static int sumOfFactors(int[] factors) {
+        int sum = 0;
+        for (int f : factors) sum += f;
+        return sum;
+    }
+
+    // Product of factors
+    public static long productOfFactors(int[] factors) {
+        long product = 1;
+        for (int f : factors) product *= f;
+        return product;
+    }
+
+    // Product of cube of factors
+    public static long productOfCubes(int[] factors) {
+        long product = 1;
+        for (int f : factors) product *= Math.pow(f, 3);
+        return product;
+    }
+
+    // Is Perfect Number
+    public static boolean isPerfect(int number, int[] factors) {
+        int sum = 0;
+        for (int f : factors) {
+            if (f != number) sum += f;
+        }
+        return sum == number;
+    }
+
+    // Is Abundant Number
+    public static boolean isAbundant(int number, int[] factors) {
+        int sum = 0;
+        for (int f : factors) {
+            if (f != number) sum += f;
+        }
+        return sum > number;
+    }
+
+    // Is Deficient Number
+    public static boolean isDeficient(int number, int[] factors) {
+        int sum = 0;
+        for (int f : factors) {
+            if (f != number) sum += f;
+        }
+        return sum < number;
+    }
+
+    // Is Strong Number
+    public static boolean isStrong(int number, int[] digits) {
+        int sum = 0;
+        for (int d : digits) {
+            sum += factorial(d);
+        }
+        return sum == number;
+    }
+
+    private static int factorial(int n) {
+        int fact = 1;
+        for (int i = 2; i <= n; i++) fact *= i;
+        return fact;
+    }
+
+    // ----------------- MAIN METHOD ----------------------
+    public static void main(String[] args) {
+        int number = 145; // You can change this to test different numbers
+        int[] digits = getDigitsArray(number);
+        int[] reversed = reverseDigits(digits);
+        int[] factors = getFactors(number);
+
+        System.out.println("Number: " + number);
+        System.out.println("Digits: " + Arrays.toString(digits));
+        System.out.println("Reversed: " + Arrays.toString(reversed));
+        System.out.println("Palindrome: " + isPalindrome(digits));
+        System.out.println("Duck Number: " + isDuckNumber(number));
+        System.out.println("Armstrong Number: " + isArmstrong(number, digits));
+        System.out.println("Harshad Number: " + isHarshad(number, digits));
+        System.out.println("Prime: " + isPrime(number));
+        System.out.println("Neon Number: " + isNeon(number));
+        System.out.println("Spy Number: " + isSpyNumber(number));
+        System.out.println("Automorphic: " + isAutomorphic(number));
+        System.out.println("Buzz Number: " + isBuzz(number));
+        System.out.println("Strong Number: " + isStrong(number, digits));
+
+        System.out.println("Factors: " + Arrays.toString(factors));
+        System.out.println("Perfect Number: " + isPerfect(number, factors));
+        System.out.println("Abundant Number: " + isAbundant(number, factors));
+        System.out.println("Deficient Number: " + isDeficient(number, factors));
+
+        int[] max2 = findTwoLargest(digits);
+        int[] min2 = findTwoSmallest(digits);
+        System.out.println("Two Largest Digits: " + Arrays.toString(max2));
+        System.out.println("Two Smallest Digits: " + Arrays.toString(min2));
+    }
+}
+
+//7.Generate Unique 6-Digit OTPs
+import java.util.Arrays;
+
+public class OTPGenerator {
+
+    // Method to generate a 6-digit OTP using Math.random()
+    public static int generateOTP() {
+        return 100000 + (int)(Math.random() * 900000); // Ensures a number between 100000 and 999999
+    }
+
+    // Method to check if all OTPs are unique
+    public static boolean areOTPsUnique(int[] otps) {
+        for (int i = 0; i < otps.length; i++) {
+            for (int j = i + 1; j < otps.length; j++) {
+                if (otps[i] == otps[j]) {
+                    return false; // Found duplicate
+                }
+            }
+        }
+        return true; // All are unique
+    }
+
+    public static void main(String[] args) {
+        int[] otpArray = new int[10];
+
+        // Generate 10 OTPs
+        for (int i = 0; i < otpArray.length; i++) {
+            otpArray[i] = generateOTP();
+        }
+
+        // Display the OTPs
+        System.out.println("Generated OTPs:");
+        for (int otp : otpArray) {
+            System.out.println(otp);
+        }
+
+        // Check for uniqueness
+        boolean unique = areOTPsUnique(otpArray);
+        System.out.println("\nAre all OTPs unique? " + unique);
+    }
+}
+
+//8. Java Calendar Program (User Input: Month + Year)
+import java.util.Scanner;
+
+public class CalendarDisplay {
+
+    // Method to get month name
+    public static String getMonthName(int month) {
+        String[] months = {
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        };
+        return months[month - 1];
+    }
+
+    // Method to check leap year
+    public static boolean isLeapYear(int year) {
+        return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+    }
+
+    // Method to get number of days in a month
+    public static int getNumberOfDays(int month, int year) {
+        int[] days = {
+            31, 28, 31, 30, 31, 30,
+            31, 31, 30, 31, 30, 31
+        };
+
+        if (month == 2 && isLeapYear(year)) {
+            return 29;
+        }
+        return days[month - 1];
+    }
+
+    // Method to get the first day of the month using Gregorian calendar algorithm
+    public static int getFirstDayOfMonth(int month, int year) {
+        int d = 1; // Day of month
+        int y0 = year - (14 - month) / 12;
+        int x = y0 + y0 / 4 - y0 / 100 + y0 / 400;
+        int m0 = month + 12 * ((14 - month) / 12) - 2;
+        int d0 = (d + x + (31 * m0) / 12) % 7;
+        return d0; // 0: Sunday, 1: Monday, ..., 6: Saturday
+    }
+
+    // Method to print calendar
+    public static void printCalendar(int month, int year) {
+        String monthName = getMonthName(month);
+        int days = getNumberOfDays(month, year);
+        int startDay = getFirstDayOfMonth(month, year);
+
+        // Print header
+        System.out.println("    " + monthName + " " + year);
+        System.out.println("Sun Mon Tue Wed Thu Fri Sat");
+
+        // First loop to add spaces before first day
+        for (int i = 0; i < startDay; i++) {
+            System.out.print("    ");
+        }
+
+        // Second loop to print the days of the month
+        for (int day = 1; day <= days; day++) {
+            System.out.printf("%3d ", day);
+            if ((day + startDay) % 7 == 0) {
+                System.out.println(); // New line after Saturday
+            }
+        }
+        System.out.println(); // Final new line
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter month (1-12): ");
+        int month = sc.nextInt();
+        System.out.print("Enter year: ");
+        int year = sc.nextInt();
+
+        // Validate input
+        if (month < 1 || month > 12 || year < 1) {
+            System.out.println("Invalid month or year!");
+        } else {
+            printCalendar(month, year);
+        }
+
+        sc.close();
+    }
+}
+
+
+//9.Euclidean distance between two points
+import java.util.Scanner;
+
+public class GeometryCalculator {
+
+    // Method to calculate Euclidean distance between two points
+    public static double calculateDistance(double x1, double y1, double x2, double y2) {
+        double dx = Math.pow(x2 - x1, 2);
+        double dy = Math.pow(y2 - y1, 2);
+        return Math.sqrt(dx + dy);
+    }
+
+    // Method to find slope and y-intercept
+    public static double[] findLineEquation(double x1, double y1, double x2, double y2) {
+        double[] result = new double[2];
+
+        if (x2 == x1) {
+            throw new ArithmeticException("Slope is undefined for vertical lines (x1 = x2).");
+        }
+
+        double m = (y2 - y1) / (x2 - x1);  // slope
+        double b = y1 - m * x1;           // y-intercept
+
+        result[0] = m;
+        result[1] = b;
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Input points
+        System.out.print("Enter x1: ");
+        double x1 = sc.nextDouble();
+        System.out.print("Enter y1: ");
+        double y1 = sc.nextDouble();
+        System.out.print("Enter x2: ");
+        double x2 = sc.nextDouble();
+        System.out.print("Enter y2: ");
+        double y2 = sc.nextDouble();
+
+        // Compute distance
+        double distance = calculateDistance(x1, y1, x2, y2);
+        System.out.printf("Euclidean Distance between (%.2f, %.2f) and (%.2f, %.2f) = %.4f\n",
+                x1, y1, x2, y2, distance);
+
+        try {
+            // Compute line equation
+            double[] line = findLineEquation(x1, y1, x2, y2);
+            System.out.printf("Equation of the line: y = %.2fx + %.2f\n", line[0], line[1]);
+        } catch (ArithmeticException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        sc.close();
+    }
+}
+
+//10. Check Collinearity of 3 Points
+import java.util.Scanner;
+
+public class CollinearityChecker {
+
+    // Method using slope comparison
+    public static boolean areCollinearBySlope(double x1, double y1, double x2, double y2, double x3, double y3) {
+        double slopeAB = (y2 - y1) / (x2 - x1);
+        double slopeBC = (y3 - y2) / (x3 - x2);
+        double slopeAC = (y3 - y1) / (x3 - x1);
+
+        // Check if all slopes are equal
+        return (slopeAB == slopeBC) && (slopeAB == slopeAC);
+    }
+
+    // Method using area of triangle
+    public static boolean areCollinearByArea(double x1, double y1, double x2, double y2, double x3, double y3) {
+        double area = 0.5 * (x1 * (y2 - y3) +
+                             x2 * (y3 - y1) +
+                             x3 * (y1 - y2));
+        return area == 0;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Input 3 points
+        System.out.println("Enter coordinates of 3 points (x1 y1 x2 y2 x3 y3):");
+        double x1 = sc.nextDouble();
+        double y1 = sc.nextDouble();
+        double x2 = sc.nextDouble();
+        double y2 = sc.nextDouble();
+        double x3 = sc.nextDouble();
+        double y3 = sc.nextDouble();
+
+        // Check collinearity using both methods
+        boolean collinearBySlope = areCollinearBySlope(x1, y1, x2, y2, x3, y3);
+        boolean collinearByArea = areCollinearByArea(x1, y1, x2, y2, x3, y3);
+
+        System.out.println("\nUsing Slope Formula:");
+        System.out.println("Are the points collinear? " + collinearBySlope);
+
+        System.out.println("\nUsing Area of Triangle:");
+        System.out.println("Are the points collinear? " + collinearByArea);
+
+        sc.close();
+    }
+}
+
+
+//11.Bonus Calculation for 10 Employees
+import java.util.Arrays;
+
+public class BonusCalculator {
+
+    // Generate random salary (5-digit) and years of service (1 to 10) for 10 employees
+    public static double[][] generateEmployeeData(int numEmployees) {
+        double[][] data = new double[numEmployees][2]; // [][0] = salary, [][1] = years of service
+        for (int i = 0; i < numEmployees; i++) {
+            int salary = 10000 + (int)(Math.random() * 90000); // 10000 to 99999
+            int years = 1 + (int)(Math.random() * 10); // 1 to 10 years
+            data[i][0] = salary;
+            data[i][1] = years;
+        }
+        return data;
+    }
+
+    // Calculate bonus and new salary based on service
+    public static double[][] calculateBonusAndNewSalary(double[][] data) {
+        int numEmployees = data.length;
+        double[][] result = new double[numEmployees][3]; // [][0] = bonus, [][1] = new salary, [][2] = old salary
+        for (int i = 0; i < numEmployees; i++) {
+            double salary = data[i][0];
+            int years = (int) data[i][1];
+            double bonusPercent = (years > 5) ? 0.05 : 0.02;
+            double bonus = salary * bonusPercent;
+            double newSalary = salary + bonus;
+            result[i][0] = bonus;
+            result[i][1] = newSalary;
+            result[i][2] = salary;
+        }
+        return result;
+    }
+
+    // Display report in tabular format and compute totals
+    public static void displayReport(double[][] data, double[][] bonusData) {
+        double totalOldSalary = 0, totalBonus = 0, totalNewSalary = 0;
+
+        System.out.printf("%-10s %-12s %-15s %-10s %-12s\n", "Emp No", "Old Salary", "Years of Service", "Bonus", "New Salary");
+        System.out.println("-----------------------------------------------------------------------");
+
+        for (int i = 0; i < data.length; i++) {
+            double oldSalary = data[i][0];
+            int years = (int)data[i][1];
+            double bonus = bonusData[i][0];
+            double newSalary = bonusData[i][1];
+
+            totalOldSalary += oldSalary;
+            totalBonus += bonus;
+            totalNewSalary += newSalary;
+
+            System.out.printf("%-10d %-12.2f %-15d %-10.2f %-12.2f\n",
+                    (i + 1), oldSalary, years, bonus, newSalary);
+        }
+
+        System.out.println("-----------------------------------------------------------------------");
+        System.out.printf("%-10s %-12.2f %-15s %-10.2f %-12.2f\n",
+                "TOTAL", totalOldSalary, "", totalBonus, totalNewSalary);
+    }
+
+    public static void main(String[] args) {
+        int numEmployees = 10;
+        double[][] employeeData = generateEmployeeData(numEmployees);
+        double[][] bonusData = calculateBonusAndNewSalary(employeeData);
+        displayReport(employeeData, bonusData);
+    }
+}
+
+//12.Student Scorecard for PCM
+import java.util.Scanner;
+
+public class StudentScorecard {
+
+    // Method to generate random PCM marks for all students
+    public static int[][] generateMarks(int n) {
+        int[][] marks = new int[n][3]; // 3 subjects: Physics, Chemistry, Math
+        for (int i = 0; i < n; i++) {
+            marks[i][0] = 10 + (int)(Math.random() * 90); // Physics
+            marks[i][1] = 10 + (int)(Math.random() * 90); // Chemistry
+            marks[i][2] = 10 + (int)(Math.random() * 90); // Math
+        }
+        return marks;
+    }
+
+    // Method to compute total, average, and percentage for each student
+    public static double[][] computeResults(int[][] marks) {
+        int n = marks.length;
+        double[][] results = new double[n][3]; // [][0]=total, [][1]=avg, [][2]=percentage
+
+        for (int i = 0; i < n; i++) {
+            int total = marks[i][0] + marks[i][1] + marks[i][2];
+            double avg = total / 3.0;
+            double percentage = (total / 300.0) * 100;
+
+            results[i][0] = Math.round(total * 100.0) / 100.0;
+            results[i][1] = Math.round(avg * 100.0) / 100.0;
+            results[i][2] = Math.round(percentage * 100.0) / 100.0;
+        }
+
+        return results;
+    }
+
+    // Method to display the final scorecard
+    public static void displayScorecard(int[][] marks, double[][] results) {
+        System.out.println("Student\tPhysics\tChemistry\tMath\tTotal\tAverage\tPercentage");
+        System.out.println("--------------------------------------------------------------");
+
+        for (int i = 0; i < marks.length; i++) {
+            System.out.println((i + 1) + "\t" +
+                    marks[i][0] + "\t" +
+                    marks[i][1] + "\t\t" +
+                    marks[i][2] + "\t" +
+                    results[i][0] + "\t" +
+                    results[i][1] + "\t" +
+                    results[i][2] + "%");
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter the number of students: ");
+        int n = sc.nextInt();
+
+        int[][] marks = generateMarks(n);
+        double[][] results = computeResults(marks);
+        displayScorecard(marks, results);
+    }
+}
+
+
+//13.Matrix Operations
+import java.util.Random;
+
+public class MatrixOperations {
+
+    static Random rand = new Random();
+
+    // Method to generate random matrix
+    public static double[][] generateMatrix(int rows, int cols) {
+        double[][] mat = new double[rows][cols];
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < cols; j++)
+                mat[i][j] = rand.nextInt(10) + 1;  // values 1 to 10
+        return mat;
+    }
+
+    // Method to display a matrix
+    public static void displayMatrix(double[][] mat) {
+        for (double[] row : mat) {
+            for (double val : row)
+                System.out.print(val + "\t");
+            System.out.println();
+        }
+    }
+
+    // Matrix addition
+    public static double[][] addMatrix(double[][] a, double[][] b) {
+        int r = a.length, c = a[0].length;
+        double[][] result = new double[r][c];
+        for (int i = 0; i < r; i++)
+            for (int j = 0; j < c; j++)
+                result[i][j] = a[i][j] + b[i][j];
+        return result;
+    }
+
+    // Matrix subtraction
+    public static double[][] subtractMatrix(double[][] a, double[][] b) {
+        int r = a.length, c = a[0].length;
+        double[][] result = new double[r][c];
+        for (int i = 0; i < r; i++)
+            for (int j = 0; j < c; j++)
+                result[i][j] = a[i][j] - b[i][j];
+        return result;
+    }
+
+    // Matrix multiplication
+    public static double[][] multiplyMatrix(double[][] a, double[][] b) {
+        int r1 = a.length, c1 = a[0].length, c2 = b[0].length;
+        double[][] result = new double[r1][c2];
+        for (int i = 0; i < r1; i++)
+            for (int j = 0; j < c2; j++)
+                for (int k = 0; k < c1; k++)
+                    result[i][j] += a[i][k] * b[k][j];
+        return result;
+    }
+
+    // Transpose of a matrix
+    public static double[][] transpose(double[][] mat) {
+        int r = mat.length, c = mat[0].length;
+        double[][] trans = new double[c][r];
+        for (int i = 0; i < r; i++)
+            for (int j = 0; j < c; j++)
+                trans[j][i] = mat[i][j];
+        return trans;
+    }
+
+    // Determinant of 2x2 matrix
+    public static double determinant2x2(double[][] mat) {
+        return mat[0][0]*mat[1][1] - mat[0][1]*mat[1][0];
+    }
+
+    // Determinant of 3x3 matrix
+    public static double determinant3x3(double[][] m) {
+        return m[0][0]*(m[1][1]*m[2][2] - m[1][2]*m[2][1])
+             - m[0][1]*(m[1][0]*m[2][2] - m[1][2]*m[2][0])
+             + m[0][2]*(m[1][0]*m[2][1] - m[1][1]*m[2][0]);
+    }
+
+    // Inverse of 2x2 matrix
+    public static double[][] inverse2x2(double[][] mat) {
+        double det = determinant2x2(mat);
+        if (det == 0) return null;
+        double[][] inv = new double[2][2];
+        inv[0][0] = mat[1][1] / det;
+        inv[0][1] = -mat[0][1] / det;
+        inv[1][0] = -mat[1][0] / det;
+        inv[1][1] = mat[0][0] / det;
+        return inv;
+    }
+
+    // Inverse of 3x3 matrix using adjoint and determinant
+    public static double[][] inverse3x3(double[][] m) {
+        double det = determinant3x3(m);
+        if (det == 0) return null;
+        double[][] inv = new double[3][3];
+        inv[0][0] = (m[1][1]*m[2][2] - m[1][2]*m[2][1]) / det;
+        inv[0][1] = -(m[0][1]*m[2][2] - m[0][2]*m[2][1]) / det;
+        inv[0][2] = (m[0][1]*m[1][2] - m[0][2]*m[1][1]) / det;
+        inv[1][0] = -(m[1][0]*m[2][2] - m[1][2]*m[2][0]) / det;
+        inv[1][1] = (m[0][0]*m[2][2] - m[0][2]*m[2][0]) / det;
+        inv[1][2] = -(m[0][0]*m[1][2] - m[0][2]*m[1][0]) / det;
+        inv[2][0] = (m[1][0]*m[2][1] - m[1][1]*m[2][0]) / det;
+        inv[2][1] = -(m[0][0]*m[2][1] - m[0][1]*m[2][0]) / det;
+        inv[2][2] = (m[0][0]*m[1][1] - m[0][1]*m[1][0]) / det;
+        return inv;
+    }
+
+    public static void main(String[] args) {
+        // Sample matrices: 2x2
+        System.out.println("---- 2x2 Matrix Operations ----");
+        double[][] A = generateMatrix(2, 2);
+        double[][] B = generateMatrix(2, 2);
+
+        System.out.println("Matrix A:");
+        displayMatrix(A);
+        System.out.println("Matrix B:");
+        displayMatrix(B);
+
+        System.out.println("Addition:");
+        displayMatrix(addMatrix(A, B));
+
+        System.out.println("Subtraction:");
+        displayMatrix(subtractMatrix(A, B));
+
+        System.out.println("Multiplication:");
+        displayMatrix(multiplyMatrix(A, B));
+
+        System.out.println("Transpose of A:");
+        displayMatrix(transpose(A));
+
+        System.out.println("Determinant of A: " + determinant2x2(A));
+        System.out.println("Inverse of A:");
+        double[][] invA2 = inverse2x2(A);
+        if (invA2 != null) displayMatrix(invA2);
+        else System.out.println("Matrix A is not invertible.");
+
+        // Sample matrices: 3x3
+        System.out.println("\n---- 3x3 Matrix Operations ----");
+        double[][] C = generateMatrix(3, 3);
+        System.out.println("Matrix C:");
+        displayMatrix(C);
+
+        System.out.println("Transpose of C:");
+        displayMatrix(transpose(C));
+
+        System.out.println("Determinant of C: " + determinant3x3(C));
+        System.out.println("Inverse of C:");
+        double[][] invC = inverse3x3(C);
+        if (invC != null) displayMatrix(invC);
+        else System.out.println("Matrix C is not invertible.");
+    }
+}
