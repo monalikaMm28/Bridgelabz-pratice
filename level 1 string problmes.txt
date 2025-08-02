@@ -1,0 +1,240 @@
+//level 1 string problems
+
+// 1. Compare two strings using charAt and equals
+import java.util.Scanner;
+
+public class StringComparison {
+    public static boolean compareUsingCharAt(String s1, String s2) {
+        if (s1.length() != s2.length()) return false;
+        for (int i = 0; i < s1.length(); i++) {
+            if (s1.charAt(i) != s2.charAt(i)) return false;
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter first string: ");
+        String str1 = sc.next();
+        System.out.print("Enter second string: ");
+        String str2 = sc.next();
+
+        boolean result = compareUsingCharAt(str1, str2);
+        System.out.println("Comparison using charAt: " + result);
+        System.out.println("Comparison using equals(): " + str1.equals(str2));
+    }
+}
+
+// 2. Create substring using charAt and compare with substring()
+public class SubstringComparison {
+    public static String substringUsingCharAt(String str, int start, int end) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = start; i < end && i < str.length(); i++) {
+            sb.append(str.charAt(i));
+        }
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a string: ");
+        String str = sc.next();
+        System.out.print("Start index: ");
+        int start = sc.nextInt();
+        System.out.print("End index: ");
+        int end = sc.nextInt();
+
+        String userSubstring = substringUsingCharAt(str, start, end);
+        String builtInSubstring = str.substring(start, end);
+        System.out.println("User-defined substring: " + userSubstring);
+        System.out.println("Built-in substring: " + builtInSubstring);
+        System.out.println("Are both substrings equal? " + userSubstring.equals(builtInSubstring));
+    }
+}
+
+// 3. Convert string to char array using charAt and compare with toCharArray
+public class CharArrayConversion {
+    public static char[] convertUsingCharAt(String str) {
+        char[] result = new char[str.length()];
+        for (int i = 0; i < str.length(); i++) {
+            result[i] = str.charAt(i);
+        }
+        return result;
+    }
+
+    public static boolean compareCharArrays(char[] a1, char[] a2) {
+        if (a1.length != a2.length) return false;
+        for (int i = 0; i < a1.length; i++) {
+            if (a1[i] != a2[i]) return false;
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a string: ");
+        String str = sc.next();
+
+        char[] arr1 = convertUsingCharAt(str);
+        char[] arr2 = str.toCharArray();
+        System.out.println("Arrays are equal? " + compareCharArrays(arr1, arr2));
+    }
+}
+
+// 4. Demonstrate NullPointerException
+public class NullPointerDemo {
+    public static void generateNullPointer() {
+        String text = null;
+        System.out.println(text.length()); // will cause NullPointerException
+    }
+
+    public static void handleNullPointer() {
+        try {
+            String text = null;
+            System.out.println(text.length());
+        } catch (NullPointerException e) {
+            System.out.println("Handled NullPointerException: " + e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        handleNullPointer();
+    }
+}
+
+// 5. StringIndexOutOfBoundsException
+public class IndexOutOfBoundsDemo {
+    public static void generateIndexException(String str) {
+        System.out.println(str.charAt(str.length())); // will throw exception
+    }
+
+    public static void handleIndexException(String str) {
+        try {
+            System.out.println(str.charAt(str.length()));
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Handled Exception: " + e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String input = sc.next();
+        handleIndexException(input);
+    }
+}
+
+// 6. IllegalArgumentException
+public class IllegalArgDemo {
+    public static void generateIllegalArgument(String str) {
+        System.out.println(str.substring(5, 2)); // invalid start > end
+    }
+
+    public static void handleIllegalArgument(String str) {
+        try {
+            System.out.println(str.substring(5, 2));
+        } catch (IllegalArgumentException e) {
+            System.out.println("Handled Exception: " + e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String input = sc.next();
+        handleIllegalArgument(input);
+    }
+}
+
+// 7. NumberFormatException
+public class NumberFormatDemo {
+    public static void generateNumberFormat(String text) {
+        int num = Integer.parseInt(text);
+        System.out.println("Number is: " + num);
+    }
+
+    public static void handleNumberFormat(String text) {
+        try {
+            int num = Integer.parseInt(text);
+            System.out.println("Number is: " + num);
+        } catch (NumberFormatException e) {
+            System.out.println("Handled Exception: " + e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String input = sc.next();
+        handleNumberFormat(input);
+    }
+}
+
+// 8. ArrayIndexOutOfBoundsException
+public class ArrayIndexDemo {
+    public static void generateArrayException(String[] arr) {
+        System.out.println(arr[arr.length]);
+    }
+
+    public static void handleArrayException(String[] arr) {
+        try {
+            System.out.println(arr[arr.length]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Handled Exception: " + e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        String[] names = {"Alice", "Bob", "Carol"};
+        handleArrayException(names);
+    }
+}
+
+// 9. Convert to uppercase using charAt
+public class ToUpperConversion {
+    public static String convertToUpper(String str) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (c >= 'a' && c <= 'z') {
+                sb.append((char)(c - 32));
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+        String manual = convertToUpper(input);
+        String builtIn = input.toUpperCase();
+        System.out.println("Manual: " + manual);
+        System.out.println("Built-in: " + builtIn);
+        System.out.println("Equal? " + manual.equals(builtIn));
+    }
+}
+
+// 10. Convert to lowercase using charAt
+public class ToLowerConversion {
+    public static String convertToLower(String str) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (c >= 'A' && c <= 'Z') {
+                sb.append((char)(c + 32));
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+        String manual = convertToLower(input);
+        String builtIn = input.toLowerCase();
+        System.out.println("Manual: " + manual);
+        System.out.println("Built-in: " + builtIn);
+        System.out.println("Equal? " + manual.equals(builtIn));
+    }
+}

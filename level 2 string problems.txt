@@ -1,0 +1,204 @@
+// level 2 string problems
+
+// 1. Program to find and return the length of a string without using the length() method
+import java.util.Scanner;
+
+public class StringLengthWithoutLength {
+    public static int findLength(String str) {
+        int count = 0;
+        try {
+            while (true) {
+                str.charAt(count);
+                count++;
+            }
+        } catch (Exception e) {
+            // StringIndexOutOfBoundsException caught
+        }
+        return count;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a string: ");
+        String str = sc.next();
+        System.out.println("Length using custom method: " + findLength(str));
+        System.out.println("Length using built-in method: " + str.length());
+    }
+}
+
+// 2. Program to split text into words and compare with split() method
+import java.util.*;
+
+public class WordSplitCompare {
+    public static String[] customSplit(String text) {
+        int count = 1;
+        for (int i = 0; i < text.length(); i++) if (text.charAt(i) == ' ') count++;
+        int[] spaceIdx = new int[count - 1];
+        int idx = 0;
+        for (int i = 0; i < text.length(); i++) if (text.charAt(i) == ' ') spaceIdx[idx++] = i;
+
+        String[] result = new String[count];
+        int start = 0;
+        for (int i = 0; i < count - 1; i++) {
+            result[i] = text.substring(start, spaceIdx[i]);
+            start = spaceIdx[i] + 1;
+        }
+        result[count - 1] = text.substring(start);
+        return result;
+    }
+
+    public static boolean compareArrays(String[] a, String[] b) {
+        if (a.length != b.length) return false;
+        for (int i = 0; i < a.length; i++) if (!a[i].equals(b[i])) return false;
+        return true;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a sentence: ");
+        String line = sc.nextLine();
+        String[] builtin = line.split(" ");
+        String[] custom = customSplit(line);
+        System.out.println("Arrays match: " + compareArrays(builtin, custom));
+    }
+}
+
+// 3. Program to split the text into words and return words and lengths in 2D array
+public class WordLength2D {
+    public static int findLength(String word) {
+        int count = 0;
+        try {
+            while (true) {
+                word.charAt(count);
+                count++;
+            }
+        } catch (Exception e) {}
+        return count;
+    }
+
+    public static String[][] wordWithLength(String text) {
+        String[] words = text.split(" ");
+        String[][] result = new String[words.length][2];
+        for (int i = 0; i < words.length; i++) {
+            result[i][0] = words[i];
+            result[i][1] = String.valueOf(findLength(words[i]));
+        }
+        return result;
+    }
+
+    public static void display(String[][] arr) {
+        System.out.println("Word\tLength");
+        for (String[] row : arr)
+            System.out.println(row[0] + "\t" + Integer.parseInt(row[1]));
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String line = sc.nextLine();
+        String[][] result = wordWithLength(line);
+        display(result);
+    }
+}
+
+// 4. Program to extract substrings manually using charAt()
+public class ManualSubstring {
+    public static String extract(String s, int start, int end) {
+        String result = "";
+        for (int i = start; i < end && i < s.length(); i++) {
+            result += s.charAt(i);
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String str = sc.next();
+        int start = sc.nextInt(), end = sc.nextInt();
+        System.out.println("Manual substring: " + extract(str, start, end));
+        System.out.println("Built-in substring: " + str.substring(start, end));
+    }
+}
+
+// 5. Program to demonstrate catching NullPointerException
+public class NullPointerExample {
+    public static void main(String[] args) {
+        String str = null;
+        try {
+            System.out.println(str.length());
+        } catch (NullPointerException e) {
+            System.out.println("Caught NullPointerException");
+        }
+    }
+}
+
+// 6. Program to demonstrate StringIndexOutOfBoundsException
+public class IndexOutOfBoundsExample {
+    public static void main(String[] args) {
+        String str = "hello";
+        try {
+            System.out.println(str.charAt(10));
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Caught StringIndexOutOfBoundsException");
+        }
+    }
+}
+
+// 7. Program to convert string to lowercase manually
+public class ToLowerManual {
+    public static String toLower(String s) {
+        String res = "";
+        for (char c : s.toCharArray()) {
+            if (c >= 'A' && c <= 'Z') res += (char)(c + 32);
+            else res += c;
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        System.out.println("Manual toLower: " + toLower(s));
+        System.out.println("Built-in toLower: " + s.toLowerCase());
+    }
+}
+
+// 8. Program to convert string to uppercase manually
+public class ToUpperManual {
+    public static String toUpper(String s) {
+        String res = "";
+        for (char c : s.toCharArray()) {
+            if (c >= 'a' && c <= 'z') res += (char)(c - 32);
+            else res += c;
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        System.out.println("Manual toUpper: " + toUpper(s));
+        System.out.println("Built-in toUpper: " + s.toUpperCase());
+    }
+}
+
+// 9. Program to demonstrate catching ArithmeticException
+public class ArithmeticExceptionDemo {
+    public static void main(String[] args) {
+        try {
+            int a = 10 / 0;
+        } catch (ArithmeticException e) {
+            System.out.println("Caught ArithmeticException");
+        }
+    }
+}
+
+// 10. Program to handle NumberFormatException
+public class NumberFormatExceptionDemo {
+    public static void main(String[] args) {
+        try {
+            int a = Integer.parseInt("abc");
+        } catch (NumberFormatException e) {
+            System.out.println("Caught NumberFormatException");
+        }
+    }
+}
