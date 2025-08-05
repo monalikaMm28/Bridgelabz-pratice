@@ -1,0 +1,348 @@
+//level 1 java classes and objects
+
+//1. Display Employee Details
+class Employee {
+    String name;
+    int id;
+    double salary;
+
+    // Constructor
+    Employee(String name, int id, double salary) {
+        this.name = name;
+        this.id = id;
+        this.salary = salary;
+    }
+
+    // Method to display employee details
+    void displayDetails() {
+        System.out.println("Employee Name: " + name);
+        System.out.println("Employee ID: " + id);
+        System.out.println("Employee Salary: $" + salary);
+    }
+
+    public static void main(String[] args) {
+        Employee emp = new Employee("Alice", 101, 55000);
+        emp.displayDetails();
+    }
+}
+
+
+//2. Compute Area of a Circle
+class Circle {
+    double radius;
+
+    // Constructor
+    Circle(double radius) {
+        this.radius = radius;
+    }
+
+    // Method to calculate area
+    double calculateArea() {
+        return Math.PI * radius * radius;
+    }
+
+    // Method to calculate circumference
+    double calculateCircumference() {
+        return 2 * Math.PI * radius;
+    }
+
+    void displayDetails() {
+        System.out.println("Radius: " + radius);
+        System.out.println("Area: " + calculateArea());
+        System.out.println("Circumference: " + calculateCircumference());
+    }
+
+    public static void main(String[] args) {
+        Circle circle = new Circle(5.5);
+        circle.displayDetails();
+    }
+}
+
+//3.Handle Book Details
+
+class Book {
+    String title;
+    String author;
+    double price;
+
+    // Constructor
+    Book(String title, String author, double price) {
+        this.title = title;
+        this.author = author;
+        this.price = price;
+    }
+
+    // Method to display book details
+    void displayDetails() {
+        System.out.println("Book Title: " + title);
+        System.out.println("Author: " + author);
+        System.out.println("Price: $" + price);
+    }
+
+    public static void main(String[] args) {
+        Book book = new Book("Atomic Habits", "James Clear", 19.99);
+        book.displayDetails();
+    }
+}
+
+//4. Track Inventory of Items
+
+class Item {
+    int itemCode;
+    String itemName;
+    double price;
+
+    // Constructor
+    Item(int itemCode, String itemName, double price) {
+        this.itemCode = itemCode;
+        this.itemName = itemName;
+        this.price = price;
+    }
+
+    // Method to calculate total cost for a quantity
+    double calculateTotalCost(int quantity) {
+        return price * quantity;
+    }
+
+    // Method to display item details
+    void displayDetails(int quantity) {
+        System.out.println("Item Code: " + itemCode);
+        System.out.println("Item Name: " + itemName);
+        System.out.println("Price per Item: $" + price);
+        System.out.println("Total Cost for " + quantity + " items: $" + calculateTotalCost(quantity));
+    }
+
+    public static void main(String[] args) {
+        Item item = new Item(201, "USB Drive", 12.5);
+        item.displayDetails(4);
+    }
+}
+
+//5. Handle Mobile Phone Details
+
+class MobilePhone {
+    String brand;
+    String model;
+    double price;
+
+    // Constructor
+    MobilePhone(String brand, String model, double price) {
+        this.brand = brand;
+        this.model = model;
+        this.price = price;
+    }
+
+    // Method to display mobile phone details
+    void displayDetails() {
+        System.out.println("Mobile Brand: " + brand);
+        System.out.println("Model: " + model);
+        System.out.println("Price: $" + price);
+    }
+
+    public static void main(String[] args) {
+        MobilePhone phone = new MobilePhone("Samsung", "Galaxy S21", 799.99);
+        phone.displayDetails();
+    }
+}
+
+
+// level 2 java classes and objects
+
+
+//1.Program to Simulate Student Report
+class Student {
+    String name;
+    int rollNumber;
+    double marks;
+
+    // Constructor
+    Student(String name, int rollNumber, double marks) {
+        this.name = name;
+        this.rollNumber = rollNumber;
+        this.marks = marks;
+    }
+
+    // Method to calculate grade
+    String calculateGrade() {
+        if (marks >= 90) return "A";
+        else if (marks >= 75) return "B";
+        else if (marks >= 60) return "C";
+        else if (marks >= 40) return "D";
+        else return "F";
+    }
+
+    // Method to display student details and grade
+    void displayDetails() {
+        System.out.println("Student Name: " + name);
+        System.out.println("Roll Number: " + rollNumber);
+        System.out.println("Marks: " + marks);
+        System.out.println("Grade: " + calculateGrade());
+    }
+
+    public static void main(String[] args) {
+        Student s = new Student("Rahul", 101, 82.5);
+        s.displayDetails();
+    }
+}
+
+
+//2.Program to Simulate an ATM
+class BankAccount {
+    String accountHolder;
+    String accountNumber;
+    double balance;
+
+    // Constructor
+    BankAccount(String holder, String number, double balance) {
+        this.accountHolder = holder;
+        this.accountNumber = number;
+        this.balance = balance;
+    }
+
+    // Deposit method
+    void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Deposited: $" + amount);
+        } else {
+            System.out.println("Invalid deposit amount.");
+        }
+    }
+
+    // Withdraw method
+    void withdraw(double amount) {
+        if (amount <= balance && amount > 0) {
+            balance -= amount;
+            System.out.println("Withdrawn: $" + amount);
+        } else {
+            System.out.println("Insufficient balance or invalid amount.");
+        }
+    }
+
+    // Display balance
+    void displayBalance() {
+        System.out.println("Account Holder: " + accountHolder);
+        System.out.println("Account Number: " + accountNumber);
+        System.out.println("Current Balance: $" + balance);
+    }
+
+    public static void main(String[] args) {
+        BankAccount acc = new BankAccount("Neha Sharma", "ACC123456", 1000);
+        acc.displayBalance();
+        acc.deposit(500);
+        acc.withdraw(300);
+        acc.displayBalance();
+    }
+}
+
+//3.Program to Check Palindrome String
+class PalindromeChecker {
+    String text;
+
+    // Constructor
+    PalindromeChecker(String text) {
+        this.text = text;
+    }
+
+    // Method to check palindrome
+    boolean isPalindrome() {
+        String reversed = new StringBuilder(text).reverse().toString();
+        return text.equalsIgnoreCase(reversed);
+    }
+
+    // Method to display result
+    void displayResult() {
+        System.out.println("Input Text: " + text);
+        if (isPalindrome()) {
+            System.out.println("It is a palindrome.");
+        } else {
+            System.out.println("It is not a palindrome.");
+        }
+    }
+
+    public static void main(String[] args) {
+        PalindromeChecker pc = new PalindromeChecker("Madam");
+        pc.displayResult();
+    }
+}
+
+
+//4. Program to Model a Movie Ticket Booking System
+class MovieTicket {
+    String movieName;
+    String seatNumber;
+    double price;
+
+    // Constructor
+    MovieTicket() {
+        // Empty constructor, values assigned during booking
+    }
+
+    // Method to book a ticket
+    void bookTicket(String movieName, String seatNumber, double price) {
+        this.movieName = movieName;
+        this.seatNumber = seatNumber;
+        this.price = price;
+        System.out.println("Ticket successfully booked!");
+    }
+
+    // Method to display ticket details
+    void displayTicket() {
+        System.out.println("Movie: " + movieName);
+        System.out.println("Seat Number: " + seatNumber);
+        System.out.println("Price: $" + price);
+    }
+
+    public static void main(String[] args) {
+        MovieTicket ticket = new MovieTicket();
+        ticket.bookTicket("Oppenheimer", "A12", 250);
+        ticket.displayTicket();
+    }
+}
+
+//5.Program to Simulate a Shopping Cart
+class CartItem {
+    String itemName;
+    double price;
+    int quantity;
+
+    // Constructor
+    CartItem(String itemName, double price, int quantity) {
+        this.itemName = itemName;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    // Method to update quantity
+    void addQuantity(int qty) {
+        this.quantity += qty;
+        System.out.println(qty + " item(s) added.");
+    }
+
+    // Method to remove quantity
+    void removeQuantity(int qty) {
+        if (qty <= quantity) {
+            this.quantity -= qty;
+            System.out.println(qty + " item(s) removed.");
+        } else {
+            System.out.println("Cannot remove more than present quantity.");
+        }
+    }
+
+    // Method to display total cost
+    void displayTotalCost() {
+        double total = price * quantity;
+        System.out.println("Item: " + itemName);
+        System.out.println("Unit Price: $" + price);
+        System.out.println("Quantity: " + quantity);
+        System.out.println("Total Cost: $" + total);
+    }
+
+    public static void main(String[] args) {
+        CartItem cart = new CartItem("Headphones", 49.99, 2);
+        cart.displayTotalCost();
+        cart.addQuantity(1);
+        cart.removeQuantity(1);
+        cart.displayTotalCost();
+    }
+}
